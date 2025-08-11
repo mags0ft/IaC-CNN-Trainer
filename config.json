@@ -1,0 +1,16 @@
+{
+    "commands": {
+        "train_cnn": [
+            "./.venv-training/bin/python3",
+            "scripts/train_cnn.py"
+        ],
+        "convert_cnn": [
+            "./.venv-training/bin/python3",
+            "scripts/cnn_convert.py"
+        ],
+        "generate_uart_payloads": [
+            "./.venv-training/bin/python3",
+            "scripts/generate_uart_payloads.py"
+        ]
+    }
+}

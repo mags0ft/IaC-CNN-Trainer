@@ -1,0 +1,11 @@
+// PEP8 ist etwas streng mit den Zeilenlängen, daher hier eine Anpassung auf 100 cols.
+{
+    "[python]": {
+        "editor.rulers": [
+            {
+                "column": 100,
+                "position": "right"
+            }
+        ]
+    }
+}
