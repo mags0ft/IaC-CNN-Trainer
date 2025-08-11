@@ -5,7 +5,7 @@ Diese Datei definiert die Home-Seite der Anwendung.
 from flask import Blueprint, render_template
 
 
-home_bp = Blueprint("home", __name__, template_folder="templates")
+home_bp = Blueprint("home", __name__, static_folder="static", template_folder="templates")
 
 
 @home_bp.route("/")

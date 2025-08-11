@@ -3,8 +3,44 @@
 
 {% block content %}
 
-<h1>Welcome to the Home Page</h1>
-<p>This is the main content of the home page.</p>
-<p>Feel free to explore the site!</p>
+<h1 class="title">Willkommen beim IaC CNN-Trainer!</h1>
+<p>
+    Wie schon in der REAMDE erklärt, ist dies ein Hilfsprogramm, um CNNs für den INVENT a CHIP-Wettbewerb zu trainieren.
+    Das UI hilft dabei, den Überblick über die Architekturen zu behalten, CNNs auf diesen zu trainieren und alles zu
+    managen.
+</p>
+
+<div class="columns m-6 p-6">
+    <div class="column">
+        <a href="{{ url_for('arch.new') }}">
+            <div class="box has-background-primary has-text-centered">
+                <h1 class="title">&#x2795;</h1>
+                <p>
+                    Neue Architektur erstellen
+                </p>
+            </div>
+        </a>
+    </div>
+    <div class="column">
+        <a href="{{ url_for('arch.view_all') }}">
+            <div class="box has-background-link has-text-centered has-text-white">
+                <h1 class="title">&#x1F477;</h1>
+                <p>
+                    Architekturen verwalten
+                </p>
+            </div>
+        </a>
+    </div>
+    <div class="column">
+        <a href="{{ url_for('cnn.view_all') }}">
+            <div class="box has-background-warning has-text-centered">
+                <h1 class="title">&#x1F50D;</h1>
+                <p>
+                    Bestehende CNNs ansehen
+                </p>
+            </div>
+        </a>
+    </div>
+</div>
 
 {% endblock %}

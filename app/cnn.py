@@ -13,4 +13,15 @@ Der Workflow ist also wie uns schon bekannt, nur jetzt mit schönem UI:
 from flask import Blueprint, render_template
 
 
-arch_bp = Blueprint("arch", __name__, template_folder="templates", url_prefix="/arch")
+cnn_bp = Blueprint(
+    "cnn", __name__, template_folder="templates", static_folder="static", url_prefix="/cnn"
+)
+
+
+@cnn_bp.route("/list")
+def view_all():
+    """
+    Zeigt alle verfügbaren CNNs an.
+    """
+
+    return render_template("cnn/list_cnns.html")

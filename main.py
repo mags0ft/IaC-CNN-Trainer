@@ -39,8 +39,19 @@ def main() -> None:
     app = Flask(__name__)
     app.config["TRAINER_CONF"] = load_config()
 
+    app.static_folder = "app/static"
+    app.template_folder = "app/templates"
+
+    from app.home import home_bp
+    from app.arch import arch_bp
+    from app.cnn import cnn_bp
+
+    app.register_blueprint(home_bp)
+    app.register_blueprint(arch_bp)
+    app.register_blueprint(cnn_bp)
+
     # Starten der Anwendung
-    app.run(port=8080)
+    app.run(port=8080, debug=True)
 
 
 if __name__ == "__main__":
