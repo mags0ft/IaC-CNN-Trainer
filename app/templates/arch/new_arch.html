@@ -8,4 +8,20 @@
     Hier kannst Du eine neue CNN-Architektur erstellen. Denke dir einen Namen aus und schicke das Formular ab!
 </p>
 
+<hr>
+
+<form method="post" action="{{ url_for('arch.create_arch') }}">
+    <div class="field">
+        <label class="label">Name der Architektur</label>
+        <div class="control">
+            <input class="input" type="text" name="name" placeholder="Architekturname, nur ASCII" required>
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <button class="button is-primary" type="submit">Erstellen</button>
+        </div>
+    </div>
+</form>
+
 {% endblock %}

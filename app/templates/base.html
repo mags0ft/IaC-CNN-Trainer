@@ -14,6 +14,18 @@
 <body>
     {% include "components/navbar.html" %}
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="m-4">
+        {% for category, message in messages %}
+        <div class="message is-{{ category }}">
+            <div class="message-body">{{ message }}</div class="message-body">
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
     <section class="section">
         {% block content %}
         {% endblock %}
