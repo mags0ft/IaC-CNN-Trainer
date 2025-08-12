@@ -8,4 +8,24 @@
     Hier sind alle trainierten CNNs aufgelistet.
 </p>
 
+<table class="table is-striped is-hoverable is-fullwidth my-5">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Aktionen</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for run in cnns %}
+        <tr>
+            <td>{{ run }}</td>
+            <td>
+                <a href="{{ url_for('cnn.view', run_name=run) }}" class="button is-small is-link">Ansehen</a>
+                <a href="{{ url_for('cnn.delete', run_name=run) }}" class="button is-small">Löschen</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% endblock %}

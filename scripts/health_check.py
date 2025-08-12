@@ -54,6 +54,17 @@ def main() -> None:
         print("Die venv für das Training fehlt anscheinend!")
         return
 
+    if not os.path.isdir("./data/mini_speech_commands"):
+        print(
+            """
+* WARNUNG: BITTE TRAININGSDATEN IN data/mini_speech_commands ABLEGEN!
+  Diese werden für das Training benötigt. Ich habe eine größere Version als die uns gegebene \
+  online gefunden, welche 32k Samples enthält, aber diese ist nicht notwendig.
+
+* Ansonsten ist alles in Ordnung.
+            """.strip()
+        )
+
     print("Alles in Ordnung! Es kann losgehen!")
 
 

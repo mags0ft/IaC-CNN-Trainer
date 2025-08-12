@@ -3,12 +3,13 @@ Hauptdatei für unsere Web-Oberfläche. Hier werden die Blueprints registriert u
 gestartet.
 """
 
+import secrets
 from flask import Flask
 import os
 import json
 
 
-CONFIG_PATH = "./config.json"
+CONFIG_PATH = os.path.join(os.path.dirname(__file__), "config.json")
 
 
 def load_config() -> dict:
@@ -25,8 +26,8 @@ def ensure_data_directory_exists():
     Stellt sicher, dass das Datenverzeichnis existiert. Wenn nicht, wird es erstellt.
     """
 
-    if not os.path.isdir("./data"):
-        os.mkdir("./data")
+    for subdir in ["data", os.path.join("data", "archs"), os.path.join("data", "cnns")]:
+        os.makedirs(subdir, exist_ok=True)
 
 
 def main() -> None:
@@ -39,8 +40,11 @@ def main() -> None:
     app = Flask(__name__)
     app.config["TRAINER_CONF"] = load_config()
 
-    app.static_folder = "app/static"
-    app.template_folder = "app/templates"
+    # das machen wir nur, damit flashes funktionieren, der Rest ist egal
+    app.config["SECRET_KEY"] = str(secrets.token_urlsafe(32))
+
+    app.static_folder = os.path.join("app", "static")
+    app.template_folder = os.path.join("app", "templates")
 
     from app.home import home_bp
     from app.arch import arch_bp
