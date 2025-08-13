@@ -12,5 +12,10 @@
             "./.venv-training/bin/python3",
             "scripts/generate_uart_payloads.py"
         ]
+    },
+    "original_cnn": {
+        "params": 199804,
+        "final_val_loss": 0.7097,
+        "final_val_acc": 0.7852
     }
 }

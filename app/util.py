@@ -1,7 +1,5 @@
 """
-Dieses Modul hat nur einen Auftrag.
-
-Und er ist großartig.
+Dieses Modul enthält Hilfsfunktionen für die Anwendung.
 """
 
 import os

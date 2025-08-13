@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Architektur duplizieren{% endblock %}
+
+{% block content %}
+
+<h1 class="title">Architektur duplizieren</h1>
+<p>
+    Hier kannst Du eine bestehende CNN-Architektur duplizieren. Denke dir einen neuen Namen aus und schicke das Formular
+    ab!
+</p>
+
+<hr>
+
+<form method="post" action="{{ url_for('arch.duplicate', arch_name=arch_name) }}">
+    <div class="field">
+        <label class="label">Name der Architektur</label>
+        <div class="control">
+            <input class="input" type="text" name="new_arch_name" placeholder="Neuer Architekturname, nur ASCII"
+                required>
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <button class="button is-link" type="submit">Duplizieren</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

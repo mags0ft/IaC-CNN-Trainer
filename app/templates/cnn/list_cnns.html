@@ -6,6 +6,10 @@
 <h1 class="title">Alle trainierten CNNs</h1>
 <p>
     Hier sind alle trainierten CNNs aufgelistet.
+
+    <span class="has-text-grey">
+        Sich noch im Training befindliche CNNs werden womöglich noch nicht angezeigt.
+    </span>
 </p>
 
 <table class="table is-striped is-hoverable is-fullwidth my-5">
@@ -27,5 +31,11 @@
         {% endfor %}
     </tbody>
 </table>
+
+<script>
+    setInterval(() => {
+        location.reload();
+    }, 5000);
+</script>
 
 {% endblock %}

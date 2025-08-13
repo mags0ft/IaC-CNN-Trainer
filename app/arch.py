@@ -131,7 +131,44 @@ def save(arch_name: str):
     return redirect(url_for("arch.view_all"))
 
 
-@arch_bp.route("/edit/<arch_name>/delete", methods=["GET"])
+@arch_bp.route("/edit/<arch_name>/duplicate", methods=["GET", "POST"])
+def duplicate(arch_name: str):
+    """
+    Dupliziert eine bestehende Architektur.
+    """
+
+    if request.method == "GET":
+        return render_template("arch/duplicate_arch.html", arch_name=arch_name)
+
+    arch_path = os.path.join(".", "data", "archs", f"{arch_name}.json")
+
+    if not os.path.isfile(arch_path):
+        flash(f"Die Architektur '{arch_name}' existiert nicht!", "danger")
+        return redirect(url_for("arch.view_all"))
+
+    with open(arch_path, "r") as f:
+        arch_data = json.load(f)
+
+    new_arch_name = request.form.get("new_arch_name", "").strip().lower().replace(" ", "_")
+    new_arch_path = os.path.join(".", "data", "archs", f"{new_arch_name}.json")
+
+    with open(new_arch_path, "w") as f:
+        json.dump(arch_data, f, indent=4)
+
+    flash(f'Die Architektur "{arch_name}" wurde erfolgreich dupliziert!', "success")
+    return redirect(url_for("arch.view_all"))
+
+
+@arch_bp.route("/edit/<arch_name>/delete-prompt")
+def delete_prompt(arch_name: str):
+    """
+    Zeigt die Bestätigungsseite zum Löschen einer Architektur an.
+    """
+
+    return render_template("arch/delete_arch.html", arch_name=arch_name)
+
+
+@arch_bp.route("/edit/<arch_name>/delete")
 def delete(arch_name: str):
     """
     Löscht eine Architektur.

@@ -46,3 +46,14 @@ Der Workflow ist also wie uns schon bekannt, nur jetzt mit schönem UI:
 |  Architekturen  | --> |  trainierte CNNs  | --> |  Payloads  |
 +-----------------+     +-------------------+     +------------+
 ```
+
+## Bewertungskriterien
+
+Notiz an mich selbst: Accuracy ist leicht wichtiger als Geschwindigkeit.
+
+Siehe Präsentation "12_projektmanagement.pdf"
+
+| Disziplin       | prozentuale Bewertung |
+|-----------------|-----------------------|
+| Accuracy        | 57,1%                 |
+| Geschwindigkeit | 42,9%                 |

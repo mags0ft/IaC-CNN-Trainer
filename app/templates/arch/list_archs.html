@@ -23,7 +23,8 @@
                 <a href="{{ url_for('cnn.train', arch_name=arch) }}" class="button is-small is-link">CNN-Training
                     starten</a>
                 <a href="{{ url_for('arch.edit', arch_name=arch) }}" class="button is-small">Bearbeiten</a>
-                <a href="{{ url_for('arch.delete', arch_name=arch) }}" class="button is-small">Löschen</a>
+                <a href="{{ url_for('arch.duplicate', arch_name=arch) }}" class="button is-small">Duplizieren</a>
+                <a href="{{ url_for('arch.delete_prompt', arch_name=arch) }}" class="button is-small">Löschen</a>
             </td>
         </tr>
         {% endfor %}

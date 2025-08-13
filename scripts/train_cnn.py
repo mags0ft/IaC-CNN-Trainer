@@ -150,52 +150,53 @@ bias_quantizer = qk.quantized_bits(bitwidth, integer_bits - 1, 0)
 activation_fn = f"quantized_relu({bitwidth}, {integer_bits - 1})"
 quantizers = {"kernel_quantizer": kernel_quantizer, "bias_quantizer": bias_quantizer}
 
+# jetzt müssen wir unser CNN aus den Angaben in der Datei bauen:
+arch = []
+
+for layer in config["layers"]:
+    type_ = layer["type"]
+
+    if type_ == "Conv2D":
+        params = layer["params"]
+        filters = params["filters"]
+        kernel_size = (params["kernel_size"][0], params["kernel_size"][1])
+        strides = (params["strides"][0], params["strides"][1])
+
+        if len(arch) == 0:
+            arch.append(
+                fql.FullyQConv2D(
+                    filters,
+                    kernel_size,
+                    strides=strides,
+                    **quantizers,
+                    input_shape=input_shape,
+                )
+            )
+        else:
+            arch.append(
+                fql.FullyQConv2D(
+                    filters,
+                    kernel_size,
+                    strides=strides,
+                    **quantizers,
+                )
+            )
+    elif type_ == "ReLU":
+        arch.append(qk.QActivation(activation_fn))
+    elif type_ == "BatchNormalization":
+        arch.append(fql.FullyQBatchNormalization())
+    elif type_ == "Dropout":
+        rate = layer["params"]["rate"]
+        arch.append(tf.keras.layers.Dropout(rate))
+    elif type_ == "Dense":
+        arch.append(fql.FullyQDense(units=layer["params"]["units"], **quantizers))
+    elif type_ == "Flatten":
+        arch.append(tf.keras.layers.Flatten())
+    elif type_ == "GlobalAveragePooling2D":
+        arch.append(tf.keras.layers.GlobalAveragePooling2D())
+
 model_qkeras = tf.keras.Sequential(
-    [
-        # Convolutional layers
-        fql.FullyQConv2D(
-            int(filt_num),
-            (2 * kernel_len, 1),
-            strides=(8, 1),
-            **quantizers,
-            input_shape=input_shape,
-        ),
-        # fql.FullyQBatchNormalization(),
-        qk.QActivation(activation_fn),
-        fql.FullyQConv2D(
-            int(1.5 * filt_num),
-            (2 * kernel_len, 1),
-            strides=(4, 1),
-            **quantizers,
-        ),
-        # fql.FullyQBatchNormalization(),
-        qk.QActivation(activation_fn),
-        fql.FullyQConv2D(
-            int(3 * filt_num),
-            (2 * kernel_len, 1),
-            strides=(4, 1),
-            **quantizers,
-        ),
-        # fql.FullyQBatchNormalization(),
-        qk.QActivation(activation_fn),
-        fql.FullyQConv2D(
-            int(4 * filt_num),
-            (2 * kernel_len, 1),
-            strides=(4, 1),
-            **quantizers,
-        ),
-        # fql.FullyQBatchNormalization(),
-        qk.QActivation(activation_fn),
-        # Flatten and dense layers
-        tf.keras.layers.Flatten(),
-        fql.FullyQDense(64, **quantizers),
-        # fql.FullyQBatchNormalization(),
-        qk.QActivation(activation_fn),
-        fql.FullyQDense(32, **quantizers),
-        # fql.FullyQBatchNormalization(),
-        qk.QActivation(activation_fn),
-        fql.FullyQDense(num_labels, **quantizers),
-    ],
+    arch,
     name=model_name,
 )
 
@@ -292,6 +293,27 @@ with open(os.path.join(folder_path, f"_acc_{best_acc}%_loss_{best_loss}.txt"), "
     Model name:           {model_name}
     Run name:             {run_name}"""
     )
+
+
+with open(os.path.join(folder_path, "info.json"), "w") as f:
+    json.dump(
+        {
+            "run_name": run_name,
+            "model_name": model_name,
+            "epochs": EPOCHS,
+            "batch_size": BATCH_SIZE,
+            "learning_rate": LEARNING_RATE,
+            "train_accuracy": history.history["accuracy"][-1],
+            "val_accuracy": history.history["val_accuracy"][-1],
+            "train_loss": history.history["loss"][-1],
+            "val_loss": history.history["val_loss"][-1],
+            "best_val_accuracy": best_acc,
+            "best_val_loss": best_loss,
+            "num_params": int(num_params),
+        },
+        f,
+    )
+
 
 # Plot training & validation loss values
 plt.figure()
