@@ -5,7 +5,72 @@
 
 <h1 class="title">CNN im Detail</h1>
 <p>
-    Hier sind alle Details zu dem von dir ausgewählten CNN aufgelistet.
+    Hier sind alle Details zu dem von dir ausgewählten CNN, {{ run_info["run_name"] }}, aufgelistet.
 </p>
+
+<hr>
+
+<h2 class="subtitle">Allgemeine Informationen</h2>
+<div class="columns">
+    <div class="column">
+        <table class="table is-striped is-hoverable is-fullwidth">
+            <tbody>
+                <tr>
+                    <th>Anzahl der Parameter</th>
+                    <td><b class="has-text-primary">{{ run_info["num_params"] }}</b> ({{ 100 * (1 -
+                        (run_info["num_params"]
+                        / original_cnn["params"])) | round(2) }}% kleiner)</td>
+                </tr>
+                <tr>
+                    <th>Beste Validierungsgenauigkeit</th>
+                    <td><b class="has-text-primary">{{ run_info["best_val_accuracy"] }}%</b> (diff.: {{
+                        (run_info["best_val_accuracy"] - 100*original_cnn["final_val_acc"]) | round(2) }}%)</td>
+                </tr>
+                <tr>
+                    <th>Bester Validierungsverlust</th>
+                    <td><b class="has-text-primary">{{ run_info["best_val_loss"] }}</b> ({{ 100 *
+                        (run_info["best_val_loss"] / original_cnn["final_val_loss"]) | round(2) }}% vom Original)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="column">
+        <table class="table is-striped is-hoverable is-fullwidth">
+            <tbody>
+                <tr>
+                    <th>Epochen</th>
+                    <td>{{ run_info["epochs"] }}</td>
+                </tr>
+                <tr>
+                    <th>Batch-Größe</th>
+                    <td>{{ run_info["batch_size"] }}</td>
+                </tr>
+                <tr>
+                    <th>Lernrate</th>
+                    <td>{{ run_info["learning_rate"] }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+<div class="columns">
+    <div class="column">
+        <h2 class="subtitle">Loss</h2>
+        <img src="{{ url_for('cnn.get_model_graph', run_name=run_info['run_name'], filename='training_loss') }}"
+            alt="Training and evaluation loss plot">
+    </div>
+    <div class="column">
+        <h2 class="subtitle">Accuracy</h2>
+        <img src="{{ url_for('cnn.get_model_graph', run_name=run_info['run_name'], filename='training_accuracy') }}"
+            alt="Training and evaluation accuracy plot">
+    </div>
+    <div class="column">
+        <h2 class="subtitle">Konfusionsmatrix</h2>
+        <img src="{{ url_for('cnn.get_model_graph', run_name=run_info['run_name'], filename='confusion_matrix') }}"
+            alt="Confusion matrix plot">
+    </div>
+</div>
 
 {% endblock %}

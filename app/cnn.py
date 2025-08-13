@@ -10,9 +10,19 @@ Der Workflow ist also wie uns schon bekannt, nur jetzt mit schönem UI:
 
 """
 
+import json
 import os
 from secrets import token_hex
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import (
+    Blueprint,
+    current_app,
+    flash,
+    redirect,
+    render_template,
+    request,
+    send_from_directory,
+    url_for,
+)
 from app.api import train_cnn
 from app.util import generate_epic_name, get_cnns
 
@@ -70,6 +80,11 @@ def delete(run_name: str):
         flash(f"Das CNN '{run_name}' existiert nicht!", "danger")
         return redirect(url_for("cnn.view_all"))
 
+    info_file_path = os.path.join(cnn_path, "info.json")
+    if not os.path.exists(info_file_path):
+        flash(f'Das CNN "{run_name}" ist noch nicht fertig trainiert!', "danger")
+        return redirect(url_for("cnn.view_all"))
+
     for root, dirs, files in os.walk(cnn_path, topdown=False):
         for name in files:
             os.remove(os.path.join(root, name))
@@ -87,12 +102,34 @@ def view(run_name: str):
     Zeigt die Details eines trainierten CNNs an.
     """
 
-    cnn_path = os.path.join(".", "data", "cnns", run_name, "model.json")
+    cnn_path = os.path.join(".", "data", "cnns", run_name)
+    info_file_path = os.path.join(cnn_path, "info.json")
+
+    if not os.path.exists(info_file_path):
+        flash(f'Das CNN "{run_name}" ist noch nicht fertig trainiert!', "danger")
+        return redirect(url_for("cnn.view_all"))
+
+    with open(info_file_path, "r") as f:
+        run_info = json.load(f)
+
+    return render_template(
+        "cnn/view_cnn.html",
+        run_name=run_name,
+        run_info=run_info,
+        original_cnn=current_app.config["TRAINER_CONF"]["original_cnn"],
+    )
+
+
+@cnn_bp.route("/get-model-graph/<run_name>/<filename>")
+def get_model_graph(run_name: str, filename: str):
+    """
+    Liefert das Bild eines Modell-Diagramms zurück.
+    """
+
+    cnn_path = os.path.join(".", "data", "cnns", run_name)
 
     if not os.path.exists(cnn_path):
-        return render_template("cnn/error.html", message="CNN not found.")
+        flash(f"Das CNN '{run_name}' existiert nicht!", "danger")
+        return redirect(url_for("cnn.view_all"))
 
-    with open(cnn_path, "r") as f:
-        cnn_data = f.read()
-
-    return render_template("cnn/view_cnn.html", run_name=run_name, cnn_data=cnn_data)
+    return send_from_directory(cnn_path, filename + ".png")

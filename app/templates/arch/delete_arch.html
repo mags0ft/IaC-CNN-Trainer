@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Architektur Löschen{% endblock %}
+
+{% block content %}
+
+<h1 class="title">Architektur löschen</h1>
+<p>
+    Hier kannst Du eine CNN-Architektur löschen.
+</p>
+
+<hr>
+
+<span class="has-text-danger is-size-4">
+    Möchtest Du die Architektur "<b>{{ arch_name }}</b>" wirklich löschen? Dies kann nicht rückgängig gemacht werden!
+</span>
+
+<hr>
+
+<a href="{{ url_for('arch.view_all') }}" class="button is-light">Abbrechen</a>
+<a href="{{ url_for('arch.delete', arch_name=arch_name) }}" class="button is-danger">Löschen</a>
+
+{% endblock %}
