@@ -10,7 +10,7 @@
         ],
         "generate_uart_payloads": [
             "./.venv-training/bin/python3",
-            "scripts/generate_uart_payloads.py"
+            "scripts/uart_payload_generator.py"
         ]
     },
     "original_cnn": {

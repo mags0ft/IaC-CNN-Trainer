@@ -1,4 +1,5 @@
 data/
+uart_payload/
 .venv-*/
 audio_cnn_sample.npy
 

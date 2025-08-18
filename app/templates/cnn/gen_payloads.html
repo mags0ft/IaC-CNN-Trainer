@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Payloads generieren{% endblock %}
+
+{% block content %}
+
+<h1 class="title">Payloads generieren</h1>
+<p>
+    Hier können aus einem bestehendem CNN die Payloads für UART generiert werden.
+</p>
+
+<p class="my-4">
+    Du hast den Run <strong>{{ run_name }}</strong> ausgewählt.
+</p>
+<p>
+    Die Umwandlung kann kurz dauern.
+</p>
+
+<hr>
+
+<div class="my-4">
+    <form method="post" action="{{ url_for('cnn.start_uart_payload_generation') }}">
+        <input type="hidden" name="run_name" value="{{ run_name }}">
+        <div class="field">
+            <div class="control">
+                <button class="button is-link" type="submit">UART-Payloads generieren</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

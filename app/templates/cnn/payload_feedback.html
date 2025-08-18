@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Payload-Logs{% endblock %}
+
+{% block content %}
+
+<h1 class="title">Payload-Logs</h1>
+<p>
+    Die Generierung wurde durchgeführt und kam zu folgendem Ergebnis.
+</p>
+
+<div class="columns is-fullwidth">
+    <div class="column">
+        <div class="message is-danger my-4">
+            <div class="message-body">
+                Nicht vergessen, in Fsm.vhdl die Layer-Anzahl auf <strong>{{ num_layers }}</strong> zu setzen.
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="message is-{% if exit_code != 0%}danger{% else %}success{% endif %} my-4">
+            <div class="message-body">
+                Exit-Code des Konvertierungsskriptes: <strong>{{ exit_code }}</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="my-4">
+    <textarea name="payload_logs" id="payload_logs" readonly rows="16" class="textarea is-family-monospace">
+        {{ payload_logs }}
+    </textarea>
+</div>
+
+{% endblock %}

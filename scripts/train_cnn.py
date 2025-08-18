@@ -30,6 +30,8 @@ config_file = sys.argv[1]
 with open(config_file, "r") as f:
     config = json.load(f)
 
+print(config)
+
 run_name = sys.argv[2]
 
 VALIDATION_SPLIT = 0.20
@@ -310,6 +312,7 @@ with open(os.path.join(folder_path, "info.json"), "w") as f:
             "best_val_accuracy": best_acc,
             "best_val_loss": best_loss,
             "num_params": int(num_params),
+            "arch": config["name"],
         },
         f,
     )

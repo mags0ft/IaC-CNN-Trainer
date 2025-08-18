@@ -9,6 +9,7 @@ oder: wenn wir eine Architektur umwandeln wollen, dann wird hier automatisch daf
 dazugehörige Skript gestartet wird.
 """
 
+import os
 from subprocess import Popen, PIPE
 from typing import Union
 from flask import current_app
@@ -47,11 +48,26 @@ def convert_architecture(run_name: str) -> dict[str, Union[str, int]]:
     return {"stdout": stdout.decode(), "stderr": stderr.decode(), "exit_code": process.returncode}
 
 
-def generate_uart_payloads(run_name: str) -> None:
+def generate_uart_payloads(num_layers=int) -> None:
     """
     Generiert die UART-Payloads für die FPGA-Architektur. Non-blocking.
     """
 
     args = current_app.config.get("TRAINER_CONF", {})["commands"]["generate_uart_payloads"]
 
-    Popen(args + [run_name])
+    Popen(args + [num_layers])
+
+
+def empty_scratchpad_folder() -> None:
+    """
+    Leert den Scratchpad-Ordner für die FPGA-Architektur, indem alle Dateien in diesem gelöscht
+    werden, aber nicht der Ordner selbst.
+    """
+
+    SCRATCHPAD_FOLDER_PATH = os.path.join("data", "scratchpad")
+
+    for filename in os.listdir(SCRATCHPAD_FOLDER_PATH):
+        file_path = os.path.join(SCRATCHPAD_FOLDER_PATH, filename)
+
+        if os.path.isfile(file_path):
+            os.remove(file_path)
