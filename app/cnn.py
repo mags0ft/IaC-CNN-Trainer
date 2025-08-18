@@ -23,7 +23,7 @@ from flask import (
     send_from_directory,
     url_for,
 )
-from app.api import train_cnn
+from app.api import empty_scratchpad_folder, train_cnn, generate_uart_payloads, convert_architecture
 from app.util import generate_epic_name, get_cnns
 
 
@@ -133,3 +133,50 @@ def get_model_graph(run_name: str, filename: str):
         return redirect(url_for("cnn.view_all"))
 
     return send_from_directory(cnn_path, filename + ".png")
+
+
+@cnn_bp.route("/gen-payloads/<run_name>")
+def gen_payloads(run_name: str):
+    """
+    Generiert die Payloads für einen bestehenden CNN-Run.
+    """
+
+    return render_template("cnn/gen_payloads.html", run_name=run_name)
+
+
+@cnn_bp.route("/start-uart-payload-generation", methods=["POST"])
+def start_uart_payload_generation():
+    """
+    Startet die Generierung der UART-Payloads.
+    """
+
+    def _count_layers(layers: list) -> int:
+        return sum(1 for layer in layers if layer["type"] in ["Conv2D", "Dense"])
+
+    run_name = request.form.get("run_name", "").strip()
+    run_path = os.path.join(".", "data", "cnns", run_name, "best_model.h5")
+    info_path = os.path.join(".", "data", "cnns", run_name, "info.json")
+
+    with open(info_path, "r") as f:
+        cnn_info = json.load(f)
+
+    arch = cnn_info["arch"]
+    arch_path = os.path.join(".", "data", "archs", f"{arch}.json")
+
+    with open(arch_path, "r") as f:
+        arch_info = json.load(f)
+
+    empty_scratchpad_folder()
+    results = convert_architecture(run_path)
+    if results["exit_code"] == 0:
+        generate_uart_payloads(str(_count_layers(arch_info["layers"])))
+
+    print(arch_info["layers"])
+
+    return render_template(
+        "cnn/payload_feedback.html",
+        payload_logs=results["stdout"] + "\n\n" + results["stderr"],
+        run_name=run_name,
+        num_layers=_count_layers(arch_info["layers"]),
+        exit_code=results["exit_code"],
+    )

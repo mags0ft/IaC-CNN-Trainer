@@ -152,6 +152,8 @@ def duplicate(arch_name: str):
     new_arch_name = request.form.get("new_arch_name", "").strip().lower().replace(" ", "_")
     new_arch_path = os.path.join(".", "data", "archs", f"{new_arch_name}.json")
 
+    arch_data["name"] = new_arch_name
+
     with open(new_arch_path, "w") as f:
         json.dump(arch_data, f, indent=4)
 

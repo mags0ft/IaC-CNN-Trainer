@@ -26,6 +26,8 @@
             <td>
                 <a href="{{ url_for('cnn.view', run_name=run) }}" class="button is-small is-link">Ansehen</a>
                 <a href="{{ url_for('cnn.delete', run_name=run) }}" class="button is-small">Löschen</a>
+                <a href="{{ url_for('cnn.gen_payloads', run_name=run) }}" class="button is-small">UART-Payloads
+                    erstellen</a>
             </td>
         </tr>
         {% endfor %}

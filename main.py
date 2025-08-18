@@ -26,7 +26,13 @@ def ensure_data_directory_exists():
     Stellt sicher, dass das Datenverzeichnis existiert. Wenn nicht, wird es erstellt.
     """
 
-    for subdir in ["data", os.path.join("data", "archs"), os.path.join("data", "cnns")]:
+    for subdir in [
+        "data",
+        "uart_payload",
+        os.path.join("data", "archs"),
+        os.path.join("data", "cnns"),
+        os.path.join("data", "scratchpad"),
+    ]:
         os.makedirs(subdir, exist_ok=True)
 
 
