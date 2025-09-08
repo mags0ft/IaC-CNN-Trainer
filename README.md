@@ -57,3 +57,17 @@ Siehe Präsentation "12_projektmanagement.pdf"
 |-----------------|-----------------------|
 | Accuracy        | 57,1%                 |
 | Geschwindigkeit | 42,9%                 |
+
+# Zitieren
+
+Bitte nenne diese Software in deinem Projektbericht, wenn Du sie verwenden solltest. Eine BibTeX-Zitierung habe ich dir Vorbereitet.
+
+```bibtex
+@misc{schlinsog2025iac,
+  author       = {Magnus Leonard Schlinsog},
+  title        = {IaC-CNN-Trainer},
+  year         = {2025},
+  howpublished = {\url{https://github.com/mags0ft/IaC-CNN-Trainer/}},
+  note         = {Software available at GitHub}
+}
+```
