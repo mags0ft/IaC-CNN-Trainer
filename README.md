@@ -1,7 +1,17 @@
-# IaC CNN-Trainer
+<p align="center">
+    <img src="./images/logo.webp" alt="Logo" width="480"/>
+</p>
+
+<h1 align="center">IaC CNN-Trainer</h1>
 
 Dies ist ein Hilfsprogramm mit grafischer Benutzeroberfläche, das ich im Rahmen von INVENT a CHIP 2025 erstellt habe.
 Es kümmert sich um das Training und die Organisation von Audio-Classification-CNNs.
+
+> [!IMPORTANT]
+> Ich habe **keine offizielle Verbindung zu INVENT a CHIP** und diese Software wird weder von INVENT a CHIP noch von einer anderen offiziellen Stelle unterstützt und bereitgestellt. Es handelt sich um ein unabhängiges Projekt einer Privatperson.
+
+> [!IMPORTANT]
+> Diese App wurde NICHT gevibecoded. Sollte es Probleme geben, versuche ich zu helfen - öffne einfach ein Issue - aber ich kann nichts versprechen.
 
 ## Was es kann
 
@@ -47,11 +57,15 @@ Der Workflow ist also wie uns schon bekannt, nur jetzt mit schönem UI:
 +-----------------+     +-------------------+     +------------+
 ```
 
+> [!IMPORTANT]
+> Aus urheberrechtlichen Gründen darf ich die Skripte `cnn_training.py`, `cnn_convert.py` und das Skript zur UART-Payloadgenerierung leider nicht einfach so bereitstellen.
+> Sie werden aber für die Software benötigt. Du musst sie im Ordner `scripts/` ablegen und so umschreiben, dass sie die Kommandozeilenargumente korrekt verarbeiten, die vom IaC CNN-Trainer übergeben werden.
+
 ## Bewertungskriterien
 
-Notiz an mich selbst: Accuracy ist leicht wichtiger als Geschwindigkeit.
+Tipp: Accuracy ist leicht wichtiger als Geschwindigkeit.
 
-Siehe Präsentation "12_projektmanagement.pdf"
+Siehe Präsentation "12_projektmanagement.pdf".
 
 | Disziplin       | prozentuale Bewertung |
 |-----------------|-----------------------|
@@ -64,10 +78,10 @@ Bitte nenne diese Software in deinem Projektbericht, wenn Du sie verwenden sollt
 
 ```bibtex
 @misc{schlinsog2025iac,
-  author       = {Magnus Leonard Schlinsog},
-  title        = {IaC-CNN-Trainer},
-  year         = {2025},
-  howpublished = {\url{https://github.com/mags0ft/IaC-CNN-Trainer/}},
-  note         = {Software available at GitHub}
+    author       = {Magnus Leonard Schlinsog},
+    title        = {IaC CNN-Trainer},
+    year         = {2025},
+    howpublished = {\url{https://github.com/mags0ft/IaC-CNN-Trainer/}},
+    note         = {Software available at GitHub}
 }
 ```
