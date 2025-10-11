@@ -74,7 +74,7 @@ Siehe Präsentation "12_projektmanagement.pdf".
 
 # Zitieren
 
-Bitte nenne diese Software in deinem Projektbericht, wenn Du sie verwenden solltest. Eine BibTeX-Zitierung habe ich dir Vorbereitet.
+Bitte nenne diese Software in deinem Projektbericht, wenn Du sie verwenden solltest. Eine BibTeX-Zitierung habe ich dir vorbereitet.
 
 ```bibtex
 @misc{schlinsog2025iac,
