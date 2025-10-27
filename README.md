@@ -15,12 +15,14 @@ Es kümmert sich um das Training und die Organisation von Audio-Classification-C
 
 ## Was es kann
 
+Der CNN-Trainer wird...
+
 - das Training von CNNs anordnen, visualisieren, überwachen etc.
 - die trainierten CNNs und deren Architekturen strukturiert speichern und organisieren
 - Leistungsmessungen der CNNs durchführen
 - Dateien für Cutecom mithilfe des uns gegebenen Skriptes erzeugen und organisiert abspeichern
 
-Dabei ist alles hübsch aufbereitet. Ich habe großen Wert auf Codequalität gelegt. Bitte den Code der Oberfläche und des Programms im Generellen beachten.
+Dabei ist alles hübsch aufbereitet. Ich habe großen Wert auf Codequalität gelegt. Bitte den Code der Oberfläche und des Programms im Generellen beachten, um zu verstehen, wie es funktioniert, bevor Du beginnst, die von IaC gegebenen Skripte zu verändern. Den Aufwand ist es wert.
 
 ## Installation
 
