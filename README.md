@@ -83,7 +83,7 @@ Bitte nenne diese Software in deinem Projektbericht, wenn Du sie verwenden sollt
     author       = {Magnus Leonard Schlinsog},
     title        = {IaC CNN-Trainer},
     year         = {2025},
-    howpublished = {\url{https://github.com/mags0ft/IaC-CNN-Trainer/}},
-    note         = {Software available at GitHub}
+    url          = {https://github.com/mags0ft/IaC-CNN-Trainer/},
+    note         = {Software available on GitHub}
 }
 ```
