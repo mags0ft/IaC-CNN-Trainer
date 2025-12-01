@@ -62,6 +62,7 @@ Der Workflow ist also wie uns schon bekannt, nur jetzt mit schönem UI:
 > [!IMPORTANT]
 > Aus urheberrechtlichen Gründen darf ich die Skripte `cnn_training.py`, `cnn_convert.py` und das Skript zur UART-Payloadgenerierung leider nicht einfach so bereitstellen.
 > Sie werden aber für die Software benötigt. Du musst sie im Ordner `scripts/` ablegen und so umschreiben, dass sie die Kommandozeilenargumente korrekt verarbeiten, die vom IaC CNN-Trainer übergeben werden.
+> Ich helfe aber gern bei der Anpassung der Skripte, [erstelle einfach ein neues Issue](https://github.com/mags0ft/IaC-CNN-Trainer/issues).
 
 ## Bewertungskriterien
 
