@@ -12,6 +12,10 @@ import sys
 
 
 def pad_to_four_bytes(my_string):
+    """
+    Pads the input string to 4 bytes length, inserting zeroes.
+    """
+
     length = len(my_string)
     while length < 4:
         my_string = "0" + my_string
@@ -20,6 +24,10 @@ def pad_to_four_bytes(my_string):
 
 
 def convert_to_hex(my_string):
+    """
+    Converts a given binary (0 and 1) string to hexadecimal.
+    """
+
     my_string = hex(int(my_string, 2))[2:]
     my_string = pad_to_four_bytes(my_string)
     my_string = bytes.fromhex(my_string)
@@ -27,6 +35,10 @@ def convert_to_hex(my_string):
 
 
 def build_header(command_byte, length, address):
+    """
+    Constructs the header.
+    """
+
     first_line = command_byte + length[:8]
     first_line = convert_to_hex(first_line)
     header = first_line
