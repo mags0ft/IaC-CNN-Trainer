@@ -235,9 +235,15 @@ def main() -> None:
 
 
 def ensure_folders_exist():
-    if not os.path.exists("uart_payload"):
-        print("creating folder uart_payload")
-        os.makedirs("uart_payload")
+    """
+    Ensures the `uart_payload` directory exists; creates it if not present.
+    """
+
+    if os.path.exists("uart_payload"):
+        return
+
+    print("creating folder uart_payload")
+    os.makedirs("uart_payload")
 
 
 if __name__ == "__main__":
